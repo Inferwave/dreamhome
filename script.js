@@ -1,3 +1,8 @@
+// Old code:
+fetch('https://your-backend-service.com/api/leads', {
+
+// Updated code:
+fetch('http://localhost:3000/api/leads', {
 const formSteps = document.querySelectorAll('.form-step');
 const nextBtns = document.querySelectorAll('.btn-next');
 const prevBtns = document.querySelectorAll('.btn-prev');
@@ -297,7 +302,7 @@ document.getElementById('lead-form').addEventListener('submit', function(event) 
     
     if (firstName && lastName && email && phone) {
         // Assuming you have a backend service to handle the form submission
-        fetch('https://your-backend-service.com/api/leads', {
+        fetch('http://localhost:3000/api/leads', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
