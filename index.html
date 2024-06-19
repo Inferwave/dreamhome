@@ -1,0 +1,282 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Your Dream Home Listing</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            margin: 20px;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .progress {
+            height: 8px;
+            background-color: #007bff;
+            border-radius: 5px;
+            width: 0;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step-active {
+            display: block;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        button[disabled] {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-next.completed {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-prev {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        button[type="submit"].completed {
+            background-color: green;
+            color: #fff;
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unlock Your Dream Home Listing!</h1>
+        <p>Provide your details to access exclusive property listings.</p>
+        <div class="progress-container">
+            <div class="progress" id="progress"></div>
+        </div>
+        <form id="lead-form">
+            <!-- Step 1: Pre-Qualification Questions -->
+            <div class="form-step form-step-active">
+                <div class="question">
+                    <label for="property-type">What type of property are you interested in?</label>
+                    <select id="property-type" name="property-type" required>
+                        <option value="" disabled selected>Select a property type</option>
+                        <option value="single-family">Single-family home</option>
+                        <option value="condo">Condo/Townhouse</option>
+                        <option value="multi-family">Multi-family home</option>
+                        <option value="land">Land</option>
+                        <option value="commercial">Commercial property</option>
+                    </select>
+                </div>
+                <div class="question disabled">
+                    <label for="budget-range">What is your budget range?</label>
+                    <select id="budget-range" name="budget-range" required>
+                        <option value="" disabled selected>Select your budget range</option>
+                        <option value="under-100k">Under $100,000</option>
+                        <option value="100k-200k">$100,000 - $200,000</option>
+                        <option value="200k-300k">$200,000 - $300,000</option>
+                        <option value="300k-400k">$300,000 - $400,000</option>
+                        <option value="400k-500k">$400,000 - $500,000</option>
+                        <option value="over-500k">Over $500,000</option>
+                    </select>
+                </div>
+                <div class="question disabled">
+                    <label for="time-frame">When are you planning to purchase a property?</label>
+                    <select id="time-frame" name="time-frame" required>
+                        <option value="" disabled selected>Select a time frame</option>
+                        <option value="immediately">Immediately</option>
+                        <option value="3-months">Within 3 months</option>
+                        <option value="6-months">Within 6 months</option>
+                        <option value="1-year">Within a year</option>
+                        <option value="browsing">Just browsing</option>
+                    </select>
+                </div>
+                <div class="question disabled">
+                    <label for="pre-approved">Are you pre-approved for a mortgage?</label>
+                    <select id="pre-approved" name="pre-approved" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="planning">Not yet, but planning to</option>
+                    </select>
+                </div>
+                <div class="question disabled">
+                    <label for="sell-property">Do you need to sell an existing property before buying a new one?</label>
+                    <select id="sell-property" name="sell-property" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn-prev" style="visibility: hidden;">Previous</button>
+                    <button type="button" class="btn-next" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Location Selection -->
+            <div class="form-step">
+                <div class="question">
+                    <label for="state">Where are you looking to move to? Select the state:</label>
+                    <select id="state" name="state" required>
+                        <option value="" disabled selected>Select a state</option>
+                        <!-- Populate states dynamically -->
+                    </select>
+                </div>
+                <div class="question disabled" id="city-question">
+                    <label for="city">Select the city:</label>
+                    <select id="city" name="city" required>
+                        <option value="" disabled selected>Select a city</option>
+                        <!-- Populate cities dynamically based on selected state -->
+                    </select>
+                </div>
+                <div class="question disabled" id="manual-city-question" style="display: none;">
+                    <label for="manual-city">Enter the city:</label>
+                    <input type="text" id="manual-city" name="manual-city">
+                </div>
+                <div class="question" style="display: none;" id="city-not-listed-container">
+                    <input type="checkbox" id="city-not-listed" name="city-not-listed">
+                    <label for="city-not-listed" style="font-size: smaller; color: gray;">The city I'm planning to move to is not listed</label>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="button" class="btn-next" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Real Estate Agent Question -->
+            <div class="form-step">
+                <div class="question">
+                    <label for="working-with-agent">Are you currently working with a real estate agent?</label>
+                    <select id="working-with-agent" name="working-with-agent" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div id="agent-info" class="question disabled" style="display: none;">
+                    <label for="agent-name">Agent's Name:</label>
+                    <input type="text" id="agent-name" name="agent-name">
+                    <label for="agent-email">Agent's Email:</label>
+                    <input type="email" id="agent-email" name="agent-email">
+                    <label for="agent-phone">Agent's Phone Number:</label>
+                    <input type="tel" id="agent-phone" name="agent-phone" placeholder="(123) 456-7890">
+                </div>
+                <div id="local-agent-convo" class="question disabled" style="display: none;">
+                    <label for="local-agent-convo-select">Would you like to be connected with a local agent for a zero-commitment conversation?</label>
+                    <select id="local-agent-convo-select" name="local-agent-convo">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="yes">Yes, I'd like to learn more</option>
+                        <option value="no">No, thank you</option>
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="button" class="btn-next" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Personal Information -->
+            <div class="form-step">
+                <div class="question">
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                </div>
+                <div class="question disabled" id="last-name-field" style="display: none;">
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="last-name" name="last-name" required>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="button" class="btn-next" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Email Information -->
+            <div class="form-step">
+                <div class="question">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="button" class="btn-next" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Phone Information -->
+            <div class="form-step">
+                <div class="question">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" required>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="submit" class="completed">Get Access Now</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
